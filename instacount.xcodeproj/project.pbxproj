@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		4A43BCA17C5D5F08329D250C /* Pods_instacount.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36C944225E8F3E3B208340E0 /* Pods_instacount.framework */; };
+		AB24921E1F74441A000FA739 /* CountController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24921D1F74441A000FA739 /* CountController.swift */; };
+		AB2492201F74472A000FA739 /* Instagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24921F1F74472A000FA739 /* Instagram.swift */; };
 		AB56BF511F742F6D0032E817 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB56BF501F742F6D0032E817 /* AppDelegate.swift */; };
-		AB56BF531F742F6D0032E817 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB56BF521F742F6D0032E817 /* ViewController.swift */; };
+		AB56BF531F742F6D0032E817 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB56BF521F742F6D0032E817 /* LoginController.swift */; };
 		AB56BF561F742F6D0032E817 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB56BF541F742F6D0032E817 /* Main.storyboard */; };
 		AB56BF581F742F6D0032E817 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB56BF571F742F6D0032E817 /* Assets.xcassets */; };
 		AB56BF5B1F742F6D0032E817 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB56BF591F742F6D0032E817 /* LaunchScreen.storyboard */; };
@@ -19,9 +21,11 @@
 		023FC60473A3FE8DF7590F06 /* Pods-instacount.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instacount.release.xcconfig"; path = "Pods/Target Support Files/Pods-instacount/Pods-instacount.release.xcconfig"; sourceTree = "<group>"; };
 		22C34D3C8A391C8E109EC4A2 /* Pods-instacount.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instacount.debug.xcconfig"; path = "Pods/Target Support Files/Pods-instacount/Pods-instacount.debug.xcconfig"; sourceTree = "<group>"; };
 		36C944225E8F3E3B208340E0 /* Pods_instacount.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_instacount.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB24921D1F74441A000FA739 /* CountController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountController.swift; sourceTree = "<group>"; };
+		AB24921F1F74472A000FA739 /* Instagram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instagram.swift; sourceTree = "<group>"; };
 		AB56BF4D1F742F6D0032E817 /* instacount.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = instacount.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB56BF501F742F6D0032E817 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AB56BF521F742F6D0032E817 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AB56BF521F742F6D0032E817 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		AB56BF551F742F6D0032E817 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AB56BF571F742F6D0032E817 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB56BF5A1F742F6D0032E817 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -79,7 +83,9 @@
 			isa = PBXGroup;
 			children = (
 				AB56BF501F742F6D0032E817 /* AppDelegate.swift */,
-				AB56BF521F742F6D0032E817 /* ViewController.swift */,
+				AB24921F1F74472A000FA739 /* Instagram.swift */,
+				AB56BF521F742F6D0032E817 /* LoginController.swift */,
+				AB24921D1F74441A000FA739 /* CountController.swift */,
 				AB56BF541F742F6D0032E817 /* Main.storyboard */,
 				AB56BF571F742F6D0032E817 /* Assets.xcassets */,
 				AB56BF591F742F6D0032E817 /* LaunchScreen.storyboard */,
@@ -166,11 +172,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-instacount/Pods-instacount-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -217,7 +223,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB56BF531F742F6D0032E817 /* ViewController.swift in Sources */,
+				AB2492201F74472A000FA739 /* Instagram.swift in Sources */,
+				AB24921E1F74441A000FA739 /* CountController.swift in Sources */,
+				AB56BF531F742F6D0032E817 /* LoginController.swift in Sources */,
 				AB56BF511F742F6D0032E817 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
