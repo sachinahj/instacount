@@ -22,12 +22,11 @@ class CountController: UIViewController {
     
     func getRecentMedia() {
         let url = String(
-            format: "%@users/self/media/recent",
-            arguments: [INSTAGRAM_API.BASEURL]
+            format: "%@users/self/media/recent?access_token=%@",
+            arguments: [INSTAGRAM.BASEURL, accessToken]
         )
-        let params = ["access_token": accessToken]
         
-        Alamofire.request(url, method: .get, parameters: params).responseJSON {
+        Alamofire.request(url).responseJSON {
             response in
             if let json = response.result.value {
                 print("JSON: \(json)") // serialized json response

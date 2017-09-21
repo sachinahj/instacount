@@ -24,7 +24,7 @@ class LoginController: UIViewController, UIWebViewDelegate {
     func unSignedRequest () {
         let authURL = String(
             format: "%@?client_id=%@&redirect_uri=%@&response_type=token&scope=%@",
-            arguments: [INSTAGRAM_CREDS.AUTHURL, INSTAGRAM_CREDS.CLIENT_ID, INSTAGRAM_CREDS.REDIRECT_URI, INSTAGRAM_CREDS.SCOPE]
+            arguments: [INSTAGRAM.AUTHURL, INSTAGRAM.CLIENT_ID, INSTAGRAM.REDIRECT_URI, INSTAGRAM.SCOPE]
         )
         let urlRequest =  URLRequest.init(url: URL.init(string: authURL)!)
         loginWebView.loadRequest(urlRequest)
@@ -33,7 +33,7 @@ class LoginController: UIViewController, UIWebViewDelegate {
     func checkRequestForCallbackURL(request: URLRequest) -> Bool {
         let requestURLString = (request.url?.absoluteString)! as String
         
-        if requestURLString.hasPrefix(INSTAGRAM_CREDS.REDIRECT_URI) {
+        if requestURLString.hasPrefix(INSTAGRAM.REDIRECT_URI) {
             let range: Range<String.Index> = requestURLString.range(of: "#access_token=")!
             handleAuth(accessToken: requestURLString.substring(from: range.upperBound))
             return false;
