@@ -28,12 +28,20 @@ class CountController: UIViewController {
         
         Alamofire.request(url).responseJSON {
             response in
-            if let json = response.result.value {
+            if let json = response.result.value as? [String: Any] {
                 print("JSON: \(json)") // serialized json response
+                self.parseRecentMedia(json: json)
             } else {
                 print("CountController: getRecentMedia | error")
             }
         }
+    }
+    
+    func parseRecentMedia(json: [String: Any]) {
+        let decoder = JSONDecoder()
+        let instaMediaList = try! decoder.decode([String: [InstaMedia]].self, from: json)
+        print("instaMediaList.count", instaMediaList.count)
+        dump(instaMediaList)
     }
 
     /*
