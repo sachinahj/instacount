@@ -27,51 +27,6 @@ struct InstagramAPI {
             }.resume()
     }
     
-    static func getFollows(completion: @escaping (InstagramRelationshipResponse) -> Void) {
-        guard let accessToken = self.accessToken else { return }
-        let urlString = String(
-            format: "%@users/self/follows?access_token=%@",
-            arguments: [INSTAGRAM.BASEURL, accessToken]
-        )
-        guard let url = URL(string: urlString) else { return }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let json = data else { return }
-            let decoder = JSONDecoder()
-            let instagramRelationshipResponse = try! decoder.decode(InstagramRelationshipResponse.self, from: json)
-            completion(instagramRelationshipResponse)
-        }.resume()
-    }
-    
-    static func getFollowedBy(completion: @escaping (InstagramRelationshipResponse) -> Void) {
-        guard let accessToken = self.accessToken else { return }
-        let urlString = String(
-            format: "%@users/self/followed-by?access_token=%@",
-            arguments: [INSTAGRAM.BASEURL, accessToken]
-        )
-        guard let url = URL(string: urlString) else { return }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let json = data else { return }
-            let decoder = JSONDecoder()
-            let instagramRelationshipResponse = try! decoder.decode(InstagramRelationshipResponse.self, from: json)
-            completion(instagramRelationshipResponse)
-        }.resume()
-    }
-    
-    static func getRequestedBy(completion: @escaping (InstagramRelationshipResponse) -> Void) {
-        guard let accessToken = self.accessToken else { return }
-        let urlString = String(
-            format: "%@users/self/requested-by?access_token=%@",
-            arguments: [INSTAGRAM.BASEURL, accessToken]
-        )
-        guard let url = URL(string: urlString) else { return }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let json = data else { return }
-            let decoder = JSONDecoder()
-            let instagramRelationshipResponse = try! decoder.decode(InstagramRelationshipResponse.self, from: json)
-            completion(instagramRelationshipResponse)
-        }.resume()
-    }
-    
     static func getRecentMedia(userId: String?, completion: @escaping (InstagramRecentMediaResponse) -> Void) {
         guard let accessToken = self.accessToken else { return }
         let userId = userId ?? "self"
@@ -131,5 +86,50 @@ struct InstagramAPI {
             let instagramCommentsResponse = try! decoder.decode(InstagramCommentsResponse.self, from: json)
             completion(instagramCommentsResponse)
         }.resume()
+    }
+    
+    static func getFollows(completion: @escaping (InstagramRelationshipResponse) -> Void) {
+        guard let accessToken = self.accessToken else { return }
+        let urlString = String(
+            format: "%@users/self/follows?access_token=%@",
+            arguments: [INSTAGRAM.BASEURL, accessToken]
+        )
+        guard let url = URL(string: urlString) else { return }
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let json = data else { return }
+            let decoder = JSONDecoder()
+            let instagramRelationshipResponse = try! decoder.decode(InstagramRelationshipResponse.self, from: json)
+            completion(instagramRelationshipResponse)
+            }.resume()
+    }
+    
+    static func getFollowedBy(completion: @escaping (InstagramRelationshipResponse) -> Void) {
+        guard let accessToken = self.accessToken else { return }
+        let urlString = String(
+            format: "%@users/self/followed-by?access_token=%@",
+            arguments: [INSTAGRAM.BASEURL, accessToken]
+        )
+        guard let url = URL(string: urlString) else { return }
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let json = data else { return }
+            let decoder = JSONDecoder()
+            let instagramRelationshipResponse = try! decoder.decode(InstagramRelationshipResponse.self, from: json)
+            completion(instagramRelationshipResponse)
+            }.resume()
+    }
+    
+    static func getRequestedBy(completion: @escaping (InstagramRelationshipResponse) -> Void) {
+        guard let accessToken = self.accessToken else { return }
+        let urlString = String(
+            format: "%@users/self/requested-by?access_token=%@",
+            arguments: [INSTAGRAM.BASEURL, accessToken]
+        )
+        guard let url = URL(string: urlString) else { return }
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            guard let json = data else { return }
+            let decoder = JSONDecoder()
+            let instagramRelationshipResponse = try! decoder.decode(InstagramRelationshipResponse.self, from: json)
+            completion(instagramRelationshipResponse)
+            }.resume()
     }
 }
