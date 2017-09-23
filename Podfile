@@ -6,6 +6,7 @@ target 'instacount' do
   use_frameworks!
 
   # Pods for instacount
-  pod 'Alamofire'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
 
 end

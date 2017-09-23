@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Alamofire
+import FirebaseDatabase
 
 class CountController: UIViewController {
     
@@ -40,10 +40,10 @@ class CountController: UIViewController {
 //            dump(response.data)
 //        }
         
-        InstagramAPI.getMedia(mediaId: "1609111023317807290_48645434") { response in
-            print("---------getMedia---------")
-            dump(response.data)
-        }
+//        InstagramAPI.getMedia(mediaId: "1609111023317807290_48645434") { response in
+//            print("---------getMedia---------")
+//            dump(response.data)
+//        }
         
 //        InstagramAPI.getLikes(mediaId: "1177552285539421285_48645434") { response in
 //            print("---------getLikes---------")

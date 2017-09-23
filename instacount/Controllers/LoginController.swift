@@ -31,7 +31,6 @@ class LoginController: UIViewController, UIWebViewDelegate {
     
     func checkRequestForCallbackURL(request: URLRequest) -> Bool {
         let requestURLString = (request.url?.absoluteString)! as String
-        
         if requestURLString.hasPrefix(INSTAGRAM.REDIRECT_URI) {
             let range: Range<String.Index> = requestURLString.range(of: "#access_token=")!
             handleAuth(accessToken: requestURLString.substring(from: range.upperBound))
@@ -44,12 +43,6 @@ class LoginController: UIViewController, UIWebViewDelegate {
         print("Instagram authentication token ==", accessToken)
         InstagramAPI.accessToken = accessToken
         self.performSegue(withIdentifier: "goToCount", sender: self)
-        
-//        let alertController = UIAlertController(title: "Got the token!", message: accessToken, preferredStyle: UIAlertControllerStyle.alert)
-//        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {
-//            UIAlertAction in self.performSegue(withIdentifier: "goToCount", sender: self)
-//        }))
-//        self.present(alertController, animated: true, completion: nil)
     }
     
     // Web View Delegate

@@ -21,6 +21,8 @@
 		ABE6A10E1F76D4FA00C1CF9A /* InstagramResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE6A10D1F76D4FA00C1CF9A /* InstagramResponse.swift */; };
 		ABE6A1101F76D7CC00C1CF9A /* InstagramComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE6A10F1F76D7CC00C1CF9A /* InstagramComment.swift */; };
 		ABE6A1121F76D86800C1CF9A /* InstagramAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE6A1111F76D86800C1CF9A /* InstagramAPI.swift */; };
+		ABE6A1171F76E73600C1CF9A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABE6A1161F76E69000C1CF9A /* GoogleService-Info.plist */; };
+		ABE6A1191F76E7A000C1CF9A /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE6A1181F76E7A000C1CF9A /* Firebase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		ABE6A10D1F76D4FA00C1CF9A /* InstagramResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramResponse.swift; sourceTree = "<group>"; };
 		ABE6A10F1F76D7CC00C1CF9A /* InstagramComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramComment.swift; sourceTree = "<group>"; };
 		ABE6A1111F76D86800C1CF9A /* InstagramAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramAPI.swift; sourceTree = "<group>"; };
+		ABE6A1161F76E69000C1CF9A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		ABE6A1181F76E7A000C1CF9A /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,14 +98,14 @@
 		AB56BF4F1F742F6D0032E817 /* instacount */ = {
 			isa = PBXGroup;
 			children = (
-				ABE6A1061F758FB200C1CF9A /* Instagram */,
 				AB56BF501F742F6D0032E817 /* AppDelegate.swift */,
-				AB56BF521F742F6D0032E817 /* LoginController.swift */,
-				AB24921D1F74441A000FA739 /* CountController.swift */,
+				ABE6A11A1F76E7A700C1CF9A /* Collections */,
+				ABE6A11B1F76E7B500C1CF9A /* Controllers */,
 				AB56BF541F742F6D0032E817 /* Main.storyboard */,
 				AB56BF571F742F6D0032E817 /* Assets.xcassets */,
 				AB56BF591F742F6D0032E817 /* LaunchScreen.storyboard */,
 				AB56BF5C1F742F6D0032E817 /* Info.plist */,
+				ABE6A1161F76E69000C1CF9A /* GoogleService-Info.plist */,
 			);
 			path = instacount;
 			sourceTree = "<group>";
@@ -118,6 +122,24 @@
 				ABE6A10F1F76D7CC00C1CF9A /* InstagramComment.swift */,
 			);
 			path = Instagram;
+			sourceTree = "<group>";
+		};
+		ABE6A11A1F76E7A700C1CF9A /* Collections */ = {
+			isa = PBXGroup;
+			children = (
+				ABE6A1181F76E7A000C1CF9A /* Firebase.swift */,
+				ABE6A1061F758FB200C1CF9A /* Instagram */,
+			);
+			path = Collections;
+			sourceTree = "<group>";
+		};
+		ABE6A11B1F76E7B500C1CF9A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AB56BF521F742F6D0032E817 /* LoginController.swift */,
+				AB24921D1F74441A000FA739 /* CountController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB56BF5B1F742F6D0032E817 /* LaunchScreen.storyboard in Resources */,
+				ABE6A1171F76E73600C1CF9A /* GoogleService-Info.plist in Resources */,
 				AB56BF581F742F6D0032E817 /* Assets.xcassets in Resources */,
 				AB56BF561F742F6D0032E817 /* Main.storyboard in Resources */,
 			);
@@ -198,11 +221,15 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-instacount/Pods-instacount-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -256,6 +283,7 @@
 				AB56BF531F742F6D0032E817 /* LoginController.swift in Sources */,
 				ABE6A10C1F76D4E300C1CF9A /* InstagramSimpleUser.swift in Sources */,
 				ABE6A1081F758FCF00C1CF9A /* InstagramMedia.swift in Sources */,
+				ABE6A1191F76E7A000C1CF9A /* Firebase.swift in Sources */,
 				ABE6A1101F76D7CC00C1CF9A /* InstagramComment.swift in Sources */,
 				AB56BF511F742F6D0032E817 /* AppDelegate.swift in Sources */,
 				ABE6A10E1F76D4FA00C1CF9A /* InstagramResponse.swift in Sources */,
