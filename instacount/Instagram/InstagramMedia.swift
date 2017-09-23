@@ -1,50 +1,36 @@
 //
-//  Instagram.swift
+//  InstagramMedia.swift
 //  instacount
 //
-//  Created by Atom - Sachin on 9/21/17.
+//  Created by Atom - Sachin on 9/22/17.
 //  Copyright © 2017 Sachin Ahuja. All rights reserved.
 //
 
 import Foundation
 
-struct INSTAGRAM {
-    static let AUTHURL = "https://api.instagram.com/oauth/authorize/"
-    static let BASEURL = "https://api.instagram.com/v1/"
-    static let CLIENT_ID  = "8088cd61f7c04b4ba550ea9597df64a9"
-    static let REDIRECT_URI = "http://localhost:3000/"
-    static let SCOPE = "basic+public_content+follower_list"
-}
-
-struct InstaMediaList : Decodable {
-    let instaMedias: [InstaMedia]
-    
-    enum CodingKeys: String, CodingKey {
-        case instaMedias = "data"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        instaMedias = try container.decode([InstaMedia].self, forKey: .instaMedias)
-    }
-}
-
-struct InstaMedia: Decodable {
-    
+struct InstagramMedia: Decodable {
     let id: String
+    let user: InstagramSimpleUser
     let created: String
-    let filter: String
     let type: String
+    let filter: String
+    let caption: InstagramComment
+    let tags: [String]
     let likesCount: Int
     let commentsCount: Int
+    let userHasLiked: Bool
     
     enum CodingKeys: String, CodingKey {
         case id
+        case user
         case created = "created_time"
-        case filter
         case type
+        case filter
+        case caption
+        case tags
         case likes
         case comments
+        case userHasLiked = "user_has_liked"
     }
     
     enum LikesCodingKeys: String, CodingKey {
@@ -54,18 +40,35 @@ struct InstaMedia: Decodable {
     enum CommentsCodingKeys: String, CodingKey {
         case commentsCount = "count"
     }
-
+    
+    struct Image: Decodable {
+        let width: Int
+        let height: Int
+        let url: String
+        
+        enum CodingKeys: String, CodingKey {
+            case width
+            case height
+            case url
+        }
+    }
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: .id)
+        user = try container.decode(InstagramSimpleUser.self, forKey: .user)
         created = try container.decode(String.self, forKey: .created)
-        filter = try container.decode(String.self, forKey: .filter)
         type = try container.decode(String.self, forKey: .type)
+        filter = try container.decode(String.self, forKey: .filter)
+        caption = try container.decode(InstagramComment.self, forKey: .caption)
+        tags = try container.decode([String].self, forKey: .tags)
         
         let likes = try container.nestedContainer(keyedBy: LikesCodingKeys.self, forKey: .likes)
         likesCount = try likes.decode(Int.self, forKey: .likesCount)
         
         let comments = try container.nestedContainer(keyedBy: CommentsCodingKeys.self, forKey: .comments)
         commentsCount = try comments.decode(Int.self, forKey: .commentsCount)
+        
+        userHasLiked = try container.decode(Bool.self, forKey: .userHasLiked)  
     }
 }

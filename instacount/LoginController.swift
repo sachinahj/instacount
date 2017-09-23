@@ -10,7 +10,6 @@ import UIKit
 
 class LoginController: UIViewController, UIWebViewDelegate {
     
-    var accessToken: String?
     @IBOutlet weak var loginWebView: UIWebView!
     @IBOutlet weak var loginIndicator: UIActivityIndicatorView!
     
@@ -41,14 +40,16 @@ class LoginController: UIViewController, UIWebViewDelegate {
         return true
     }
     
-    func handleAuth(accessToken token: String)  {
-        print("Instagram authentication token ==", token)
-        accessToken = token
-        let alertController = UIAlertController(title: "Got the token!", message: token, preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {
-            UIAlertAction in self.performSegue(withIdentifier: "goToCount", sender: self)
-        }))
-        self.present(alertController, animated: true, completion: nil)
+    func handleAuth(accessToken: String)  {
+        print("Instagram authentication token ==", accessToken)
+        InstagramAPI.accessToken = accessToken
+        self.performSegue(withIdentifier: "goToCount", sender: self)
+        
+//        let alertController = UIAlertController(title: "Got the token!", message: accessToken, preferredStyle: UIAlertControllerStyle.alert)
+//        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {
+//            UIAlertAction in self.performSegue(withIdentifier: "goToCount", sender: self)
+//        }))
+//        self.present(alertController, animated: true, completion: nil)
     }
     
     // Web View Delegate
@@ -68,15 +69,6 @@ class LoginController: UIViewController, UIWebViewDelegate {
     
     func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
         webViewDidFinishLoad(webView)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        if segue.identifier == "goToCount" {
-            let destinationVC = segue.destination as! CountController
-            destinationVC.accessToken = accessToken
-        }
     }
     
 }

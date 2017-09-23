@@ -11,45 +11,48 @@ import Alamofire
 
 class CountController: UIViewController {
     
-    var accessToken: String!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("CountController")
-        print("CountController: accessToken", accessToken)
-        getRecentMedia()
-    }
-    
-    func getRecentMedia() {
-        let url = String(
-            format: "%@users/self/media/recent?access_token=%@",
-            arguments: [INSTAGRAM.BASEURL, accessToken]
-        )
         
-        Alamofire.request(url).responseJSON {
-            response in
-            if let json = response.result.value as? [String: Any] {
-                print("JSON: \(json)") // serialized json response
-                self.parseRecentMedia(json: json)
-            } else {
-                print("CountController: getRecentMedia | error")
-            }
+//        InstagramAPI.getUser(userId: nil) { response in
+//            print("---------getUser---------")
+//            dump(response.data)
+//        }
+        
+//        InstagramAPI.getFollows() { response in
+//            print("---------getFollows---------")
+//            dump(response.data)
+//        }
+        
+//        InstagramAPI.getFollowedBy() { response in
+//            print("---------getFollowedBy---------")
+//            dump(response.data)
+//        }
+        
+//        InstagramAPI.getRequestedBy() { response in
+//            print("---------getRequestedBy---------")
+//            dump(response.data)
+//        }
+        
+//        InstagramAPI.getRecentMedia(userId: nil) { response in
+//            print("---------getRecentMedia---------")
+//            dump(response.data)
+//        }
+        
+        InstagramAPI.getMedia(mediaId: "1609111023317807290_48645434") { response in
+            print("---------getMedia---------")
+            dump(response.data)
         }
+        
+//        InstagramAPI.getLikes(mediaId: "1177552285539421285_48645434") { response in
+//            print("---------getLikes---------")
+//            dump(response.data)
+//        }
+        
+//        InstagramAPI.getComments(mediaId: "1177552285539421285_48645434") { response in
+//            print("---------getComments---------")
+//            dump(response.data)
+//        }
     }
-    
-    func parseRecentMedia(json: [String: Any]) {
-        let decoder = JSONDecoder()
-        let instaMediaList = try! decoder.decode([String: [InstaMedia]].self, from: json)
-        print("instaMediaList.count", instaMediaList.count)
-        dump(instaMediaList)
-    }
-
-    /*
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
