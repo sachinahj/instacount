@@ -8,11 +8,16 @@
 
 import Foundation
 
-struct InstagramAPI {
-    static var accessToken: String?
+fileprivate var accessToken: String?
+
+class InstagramAPI {
     
-    static func getUser(userId: String?, completion: @escaping (InstagramUserResponse) -> Void) {
-        guard let accessToken = self.accessToken else { return }
+    func setAccessToken(token: String) {
+        accessToken = token
+    }
+   
+    func getUser(userId: String?, completion: @escaping (InstagramUserResponse) -> Void) {
+        guard let accessToken = accessToken else { return }
         let userId = userId ?? "self"
         let urlString = String(
             format: "%@users/%@?access_token=%@",
@@ -27,8 +32,8 @@ struct InstagramAPI {
             }.resume()
     }
     
-    static func getRecentMedia(userId: String?, completion: @escaping (InstagramRecentMediaResponse) -> Void) {
-        guard let accessToken = self.accessToken else { return }
+    func getRecentMedia(userId: String?, completion: @escaping (InstagramRecentMediaResponse) -> Void) {
+        guard let accessToken = accessToken else { return }
         let userId = userId ?? "self"
         let urlString = String(
             format: "%@users/%@/media/recent?access_token=%@",
@@ -43,8 +48,8 @@ struct InstagramAPI {
             }.resume()
     }
     
-    static func getMedia(mediaId: String, completion: @escaping (InstagramMediaResponse) -> Void) {
-        guard let accessToken = self.accessToken else { return }
+    func getMedia(mediaId: String, completion: @escaping (InstagramMediaResponse) -> Void) {
+        guard let accessToken = accessToken else { return }
         let urlString = String(
             format: "%@media/%@?access_token=%@",
             arguments: [INSTAGRAM.BASEURL, mediaId, accessToken]
@@ -58,8 +63,8 @@ struct InstagramAPI {
             }.resume()
     }
     
-    static func getLikes(mediaId: String, completion: @escaping (InstagramLikesResponse) -> Void) {
-        guard let accessToken = self.accessToken else { return }
+    func getLikes(mediaId: String, completion: @escaping (InstagramLikesResponse) -> Void) {
+        guard let accessToken = accessToken else { return }
         let urlString = String(
             format: "%@media/%@/likes?access_token=%@",
             arguments: [INSTAGRAM.BASEURL, mediaId, accessToken]
@@ -73,8 +78,8 @@ struct InstagramAPI {
             }.resume()
     }
     
-    static func getComments(mediaId: String, completion: @escaping (InstagramCommentsResponse) -> Void) {
-        guard let accessToken = self.accessToken else { return }
+    func getComments(mediaId: String, completion: @escaping (InstagramCommentsResponse) -> Void) {
+        guard let accessToken = accessToken else { return }
         let urlString = String(
             format: "%@media/%@/comments?access_token=%@",
             arguments: [INSTAGRAM.BASEURL, mediaId, accessToken]
@@ -88,8 +93,8 @@ struct InstagramAPI {
         }.resume()
     }
     
-    static func getFollows(completion: @escaping (InstagramRelationshipResponse) -> Void) {
-        guard let accessToken = self.accessToken else { return }
+    func getFollows(completion: @escaping (InstagramRelationshipResponse) -> Void) {
+        guard let accessToken = accessToken else { return }
         let urlString = String(
             format: "%@users/self/follows?access_token=%@",
             arguments: [INSTAGRAM.BASEURL, accessToken]
@@ -103,8 +108,8 @@ struct InstagramAPI {
             }.resume()
     }
     
-    static func getFollowedBy(completion: @escaping (InstagramRelationshipResponse) -> Void) {
-        guard let accessToken = self.accessToken else { return }
+    func getFollowedBy(completion: @escaping (InstagramRelationshipResponse) -> Void) {
+        guard let accessToken = accessToken else { return }
         let urlString = String(
             format: "%@users/self/followed-by?access_token=%@",
             arguments: [INSTAGRAM.BASEURL, accessToken]
@@ -118,8 +123,8 @@ struct InstagramAPI {
             }.resume()
     }
     
-    static func getRequestedBy(completion: @escaping (InstagramRelationshipResponse) -> Void) {
-        guard let accessToken = self.accessToken else { return }
+    func getRequestedBy(completion: @escaping (InstagramRelationshipResponse) -> Void) {
+        guard let accessToken = accessToken else { return }
         let urlString = String(
             format: "%@users/self/requested-by?access_token=%@",
             arguments: [INSTAGRAM.BASEURL, accessToken]

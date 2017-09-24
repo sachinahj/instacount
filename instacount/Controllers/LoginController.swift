@@ -41,7 +41,8 @@ class LoginController: UIViewController, UIWebViewDelegate {
     
     func handleAuth(accessToken: String)  {
         print("Instagram authentication token ==", accessToken)
-        InstagramAPI.accessToken = accessToken
+        let instagramAPI = InstagramAPI()
+        instagramAPI.setAccessToken(token: accessToken)
         self.performSegue(withIdentifier: "goToCount", sender: self)
     }
     

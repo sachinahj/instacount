@@ -11,14 +11,16 @@ import FirebaseDatabase
 
 class CountController: UIViewController {
     
+    let instagramAPI = InstagramAPI()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("CountController")
         
-//        InstagramAPI.getUser(userId: nil) { response in
-//            print("---------getUser---------")
-//            dump(response.data)
-//        }
+        instagramAPI.getUser(userId: nil) { response in
+            print("---------getUser---------")
+            dump(response.data)
+        }
         
 //        InstagramAPI.getFollows() { response in
 //            print("---------getFollows---------")
@@ -55,4 +57,9 @@ class CountController: UIViewController {
 //            dump(response.data)
 //        }
     }
+    
+    func getDataForFB() {
+        
+    }
+    
 }
