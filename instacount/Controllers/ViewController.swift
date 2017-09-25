@@ -19,31 +19,29 @@ class ViewController: UIViewController {
         print("CountController")
 //        getDataForFB()
         
-//        instagramAPI.getUser(userId: "496275546") { user in
+//        instagramAPI.getUser(userId: nil) { result in
+//            guard case let Result.Success(user) = result else { return }
 //            print("---------getUser---------")
 //            dump(user)
 //        }
         
-        instagramAPI.getUser(userId: nil) { result in
-            guard case let Result.Success(user) = result else { return }
-            print("---------getUser---------")
-            dump(user)
+        instagramAPI.getFollows() { result in
+            guard case let Result.Success(users) = result else { return }
+            print("---------getFollows---------")
+            dump(users)
         }
         
-//        instagramAPI.getFollows() { response in
-//            print("---------getFollows---------")
-//            dump(response.data)
-//        }
+        instagramAPI.getFollowedBy() { result in
+            guard case let Result.Success(users) = result else { return }
+            print("---------getFollowedBy---------")
+            dump(users)
+        }
         
-//        instagramAPI.getFollowedBy() { response in
-//            print("---------getFollowedBy---------")
-//            dump(response.data)
-//        }
-        
-//        instagramAPI.getRequestedBy() { response in
-//            print("---------getRequestedBy---------")
-//            dump(response.data)
-//        }
+        instagramAPI.getRequestedBy() { result in
+            guard case let Result.Success(users) = result else { return }
+            print("---------getRequestedBy---------")
+            dump(users)
+        }
         
 //        instagramAPI.getRecentMedia(userId: nil) { medias in
 //            print("---------getRecentMedia---------")

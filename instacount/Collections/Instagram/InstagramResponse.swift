@@ -14,7 +14,7 @@ struct InstagramUserResponse: Decodable {
 }
 
 struct InstagramRelationshipResponse: Decodable {
-    let data: [InstagramSimpleUser]
+    let data: [InstagramSimpleUser]?
     let meta: InstagramMeta
 }
 

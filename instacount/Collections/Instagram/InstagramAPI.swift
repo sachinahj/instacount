@@ -74,50 +74,89 @@ class InstagramAPI {
             completion(Result.Failure(error.localizedDescription))
         }
     }
-
-    func getFollows(completion: @escaping (InstagramRelationshipResponse) -> Void) {
-        guard let accessToken = accessToken else { return }
-        let urlString = String(
-            format: "%@users/self/follows?access_token=%@",
-            arguments: [INSTAGRAM.BASEURL, accessToken]
-        )
-        guard let url = URL(string: urlString) else { return }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let json = data else { return }
-            // let decoder = JSONDecoder()
-            let instagramRelationshipResponse = try! self.decoder.decode(InstagramRelationshipResponse.self, from: json)
-            completion(instagramRelationshipResponse)
+    
+    func getFollows(completion: @escaping (Result<[InstagramSimpleUser]>) -> Void) {
+        do {
+            guard let accessToken = accessToken else { throw InstagramAPIError.NoAccessToken }
+            let urlString = String(
+                format: "%@users/self/follows?access_token=%@",
+                arguments: [INSTAGRAM.BASEURL, accessToken]
+            )
+            guard let url = URL(string: urlString) else { throw InstagramAPIError.InvalidURL }
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                do {
+                    guard let json = data else { throw InstagramAPIError.NetworkError }
+                    let instagramRelationshipResponse = try self.decoder.decode(InstagramRelationshipResponse.self, from: json)
+                    if let users = instagramRelationshipResponse.data, instagramRelationshipResponse.meta.code == 200 {
+                        completion(Result.Success(users))
+                    } else {
+                        throw InstagramAPIError.Non200(meta: instagramRelationshipResponse.meta)
+                    }
+                } catch {
+                    print("getFollows: Error |", error.localizedDescription)
+                    completion(Result.Failure(error.localizedDescription))
+                }
             }.resume()
+        } catch {
+            print("getFollows: Error |", error.localizedDescription)
+            completion(Result.Failure(error.localizedDescription))
+        }
     }
     
-    func getFollowedBy(completion: @escaping (InstagramRelationshipResponse) -> Void) {
-        guard let accessToken = accessToken else { return }
-        let urlString = String(
-            format: "%@users/self/followed-by?access_token=%@",
-            arguments: [INSTAGRAM.BASEURL, accessToken]
-        )
-        guard let url = URL(string: urlString) else { return }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let json = data else { return }
-            // let decoder = JSONDecoder()
-            let instagramRelationshipResponse = try! self.decoder.decode(InstagramRelationshipResponse.self, from: json)
-            completion(instagramRelationshipResponse)
+    func getFollowedBy(completion: @escaping (Result<[InstagramSimpleUser]>) -> Void) {
+        do {
+            guard let accessToken = accessToken else { throw InstagramAPIError.NoAccessToken }
+            let urlString = String(
+                format: "%@users/self/followed-by?access_token=%@",
+                arguments: [INSTAGRAM.BASEURL, accessToken]
+            )
+            guard let url = URL(string: urlString) else { throw InstagramAPIError.InvalidURL }
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                do {
+                    guard let json = data else { throw InstagramAPIError.NetworkError }
+                    let instagramRelationshipResponse = try self.decoder.decode(InstagramRelationshipResponse.self, from: json)
+                    if let users = instagramRelationshipResponse.data, instagramRelationshipResponse.meta.code == 200 {
+                        completion(Result.Success(users))
+                    } else {
+                        throw InstagramAPIError.Non200(meta: instagramRelationshipResponse.meta)
+                    }
+                } catch {
+                    print("getFollows: Error |", error.localizedDescription)
+                    completion(Result.Failure(error.localizedDescription))
+                }
             }.resume()
+        } catch {
+            print("getFollows: Error |", error.localizedDescription)
+            completion(Result.Failure(error.localizedDescription))
+        }
     }
     
-    func getRequestedBy(completion: @escaping (InstagramRelationshipResponse) -> Void) {
-        guard let accessToken = accessToken else { return }
-        let urlString = String(
-            format: "%@users/self/requested-by?access_token=%@",
-            arguments: [INSTAGRAM.BASEURL, accessToken]
-        )
-        guard let url = URL(string: urlString) else { return }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let json = data else { return }
-            // let decoder = JSONDecoder()
-            let instagramRelationshipResponse = try! self.decoder.decode(InstagramRelationshipResponse.self, from: json)
-            completion(instagramRelationshipResponse)
+    func getRequestedBy(completion: @escaping (Result<[InstagramSimpleUser]>) -> Void) {
+        do {
+            guard let accessToken = accessToken else { throw InstagramAPIError.NoAccessToken }
+            let urlString = String(
+                format: "%@users/self/requested-by?access_token=%@",
+                arguments: [INSTAGRAM.BASEURL, accessToken]
+            )
+            guard let url = URL(string: urlString) else { throw InstagramAPIError.InvalidURL }
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                do {
+                    guard let json = data else { throw InstagramAPIError.NetworkError }
+                    let instagramRelationshipResponse = try self.decoder.decode(InstagramRelationshipResponse.self, from: json)
+                    if let users = instagramRelationshipResponse.data, instagramRelationshipResponse.meta.code == 200 {
+                        completion(Result.Success(users))
+                    } else {
+                        throw InstagramAPIError.Non200(meta: instagramRelationshipResponse.meta)
+                    }
+                } catch {
+                    print("getFollows: Error |", error.localizedDescription)
+                    completion(Result.Failure(error.localizedDescription))
+                }
             }.resume()
+        } catch {
+            print("getFollows: Error |", error.localizedDescription)
+            completion(Result.Failure(error.localizedDescription))
+        }
     }
     
     //    func getMedia(mediaId: String, completion: @escaping (InstagramMediaResponse) -> Void) {
