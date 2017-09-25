@@ -33,8 +33,10 @@ class LoginController: UIViewController, UIWebViewDelegate {
         let requestURLString = (request.url?.absoluteString)! as String
         if requestURLString.hasPrefix(INSTAGRAM.REDIRECT_URI) {
             let range: Range<String.Index> = requestURLString.range(of: "#access_token=")!
-            handleAuth(accessToken: requestURLString.substring(from: range.upperBound))
-            return false;
+//            handleAuth(accessToken: requestURLString.substring(from: range.upperBound))
+            let token = String(requestURLString[range.upperBound...])
+            handleAuth(accessToken: token)
+            return false
         }
         return true
     }

@@ -49,10 +49,10 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
-        <!--Count Controller-->
+        <!--View Controller-->
         <scene sceneID="RFc-qd-3ev">
             <objects>
-                <viewController id="tMg-AT-DXr" customClass="CountController" customModule="instacount" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="tMg-AT-DXr" customClass="ViewController" customModule="instacount" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O5k-gG-fKj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseDatabase
 
-class CountController: UIViewController {
+class ViewController: UIViewController {
     
     let instagramAPI = InstagramAPI()
     let fbManager = FBManager()
@@ -17,12 +17,12 @@ class CountController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("CountController")
-        getDataForFB()
+//        getDataForFB()
         
-//        instagramAPI.getUser(userId: nil) { response in
-//            print("---------getUser---------")
-//            dump(response.data)
-//        }
+        instagramAPI.getUser(userId: "496275546") { user in
+            print("---------getUser---------")
+            dump(user)
+        }
         
 //        instagramAPI.getFollows() { response in
 //            print("---------getFollows---------")
@@ -39,9 +39,9 @@ class CountController: UIViewController {
 //            dump(response.data)
 //        }
         
-//        instagramAPI.getRecentMedia(userId: nil) { response in
+//        instagramAPI.getRecentMedia(userId: nil) { medias in
 //            print("---------getRecentMedia---------")
-//            dump(response.data)
+//            dump(medias)
 //        }
         
 //        instagramAPI.getMedia(mediaId: "1177552285539421285_48645434") { response in
@@ -62,13 +62,11 @@ class CountController: UIViewController {
     
     func getDataForFB() {
         
-        self.instagramAPI.getUser(userId: nil) { response in
-            let user = response.data
+        self.instagramAPI.getUser(userId: nil) { user in
             print("---------getUser---------")
             dump(user)
             
-            self.instagramAPI.getRecentMedia(userId: nil) { response in
-                let medias = response.data
+            self.instagramAPI.getRecentMedia(userId: nil) { medias in
                 print("---------getRecentMedia---------")
                 dump(medias)
                 
