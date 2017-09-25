@@ -22,17 +22,17 @@ class ViewController: UIViewController {
     }
     
     func getIG(userId: String?) {
-        self.instagramAPI.getUser(userId: userId) { result in
+        instagramAPI.getUser(userId: userId) { [weak self] result in
             guard case let Result.Success(user) = result else { return }
             print("---------getUser \(userId ?? "self")---------")
             dump(user)
 
-            self.instagramAPI.getRecentMedia(userId: userId) { result in
+            self?.instagramAPI.getRecentMedia(userId: userId) { [weak self] result in
                 guard case let Result.Success(medias) = result else { return }
                 print("---------getRecentMedia \(userId ?? "self")---------")
                 print(medias.count)
 //                dump(medias)
-                self.fbManager.uploadData(user: user, medias: medias)
+                self?.fbManager.uploadData(user: user, medias: medias)
             }
         }
     }
@@ -43,14 +43,14 @@ class ViewController: UIViewController {
         let group = DispatchGroup()
         
         group.enter()
-        self.instagramAPI.getFollows() { result in
+        instagramAPI.getFollows() { result in
             guard case let Result.Success(users) = result else { return group.leave() }
             follows = users
             group.leave()
         }
         
         group.enter()
-        self.instagramAPI.getFollowedBy() { result in
+        instagramAPI.getFollowedBy() { result in
             guard case let Result.Success(users) = result else { return group.leave() }
             followedBy = users
             group.leave()
@@ -62,8 +62,8 @@ class ViewController: UIViewController {
             let uniqueNetworkIds: [String] = Array(Set(networkIds))
             dump(uniqueNetworkIds)
             
-            uniqueNetworkIds.forEach { id in
-                self.getIG(userId: id)
+            uniqueNetworkIds.forEach { [weak self] id in
+                self?.getIG(userId: id)
             }
         }
     }

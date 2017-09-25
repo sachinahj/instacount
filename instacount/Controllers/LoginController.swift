@@ -46,7 +46,7 @@ class LoginController: UIViewController, WKNavigationDelegate {
         print("Instagram authentication token ==", accessToken)
         let instagramAPI = InstagramAPI()
         instagramAPI.setAccessToken(token: accessToken)
-        self.performSegue(withIdentifier: "goToCount", sender: self)
+        performSegue(withIdentifier: "goToCount", sender: self)
     }
     
     // WebKit View Delegate
