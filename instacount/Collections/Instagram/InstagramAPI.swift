@@ -158,52 +158,6 @@ class InstagramAPI {
             completion(Result.Failure(error.localizedDescription))
         }
     }
-    
-    //    func getMedia(mediaId: String, completion: @escaping (InstagramMediaResponse) -> Void) {
-    //        guard let accessToken = accessToken else { return }
-    //        let urlString = String(
-    //            format: "%@media/%@?access_token=%@",
-    //            arguments: [INSTAGRAM.BASEURL, mediaId, accessToken]
-    //        )
-    //        guard let url = URL(string: urlString) else { return }
-    //        URLSession.shared.dataTask(with: url) { (data, response, error) in
-    //            guard let json = data else { return }
-    //            // let decoder = JSONDecoder()
-    //            let instagramMediaResponse = try! self.decoder.decode(InstagramMediaResponse.self, from: json)
-    //            completion(instagramMediaResponse)
-    //            }.resume()
-    //    }
-
-    //    func getLikes(mediaId: String, completion: @escaping (InstagramLikesResponse) -> Void) {
-    //        guard let accessToken = accessToken else { return }
-    //        let urlString = String(
-    //            format: "%@media/%@/likes?access_token=%@",
-    //            arguments: [INSTAGRAM.BASEURL, mediaId, accessToken]
-    //        )
-    //        guard let url = URL(string: urlString) else { return }
-    //        URLSession.shared.dataTask(with: url) { (data, response, error) in
-    //            guard let json = data else { return }
-    //            // let decoder = JSONDecoder()
-    //            let instagramLikesResponse = try! self.decoder.decode(InstagramLikesResponse.self, from: json)
-    //            completion(instagramLikesResponse)
-    //            }.resume()
-    //    }
-
-    //    func getComments(mediaId: String, completion: @escaping (InstagramCommentsResponse) -> Void) {
-    //        guard let accessToken = accessToken else { return }
-    //        let urlString = String(
-    //            format: "%@media/%@/comments?access_token=%@",
-    //            arguments: [INSTAGRAM.BASEURL, mediaId, accessToken]
-    //        )
-    //        guard let url = URL(string: urlString) else { return }
-    //        URLSession.shared.dataTask(with: url) { (data, response, error) in
-    //            guard let json = data else { return }
-    //            // let decoder = JSONDecoder()
-    //            let instagramCommentsResponse = try! self.decoder.decode(InstagramCommentsResponse.self, from: json)
-    //            completion(instagramCommentsResponse)
-    //        }.resume()
-    //    }
-    
 }
 
 enum InstagramAPIError: LocalizedError {

@@ -23,12 +23,8 @@ class FBManager {
     
     func uploadData(user: InstagramUser, medias: [InstagramMedia]) {
         ref = Database.database().reference()
-        
         var updates: [String: [String: Any]] = [:]
         medias.forEach { media in
-            print("---media---")
-            dump(media)
-            
             let row: [String: Any] = [
                 "userId": user.id,
                 "username": user.username,
@@ -54,10 +50,8 @@ class FBManager {
                 "commentsCount": media.commentsCount,
                 "userHasLiked": media.userHasLiked
             ]
-            
             updates["/medias/\(media.id)"] = row
         }
-        
         ref.updateChildValues(updates)
     }
 }

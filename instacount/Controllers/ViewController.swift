@@ -17,66 +17,54 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("CountController")
-//        getDataForFB()
-        
-//        instagramAPI.getUser(userId: nil) { result in
-//            guard case let Result.Success(user) = result else { return }
-//            print("---------getUser---------")
-//            dump(user)
-//        }
-        
-        instagramAPI.getFollows() { result in
-            guard case let Result.Success(users) = result else { return }
-            print("---------getFollows---------")
-            dump(users)
-        }
-        
-        instagramAPI.getFollowedBy() { result in
-            guard case let Result.Success(users) = result else { return }
-            print("---------getFollowedBy---------")
-            dump(users)
-        }
-        
-        instagramAPI.getRequestedBy() { result in
-            guard case let Result.Success(users) = result else { return }
-            print("---------getRequestedBy---------")
-            dump(users)
-        }
-        
-//        instagramAPI.getRecentMedia(userId: nil) { medias in
-//            print("---------getRecentMedia---------")
-//            dump(medias)
-//        }
-        
-//        instagramAPI.getMedia(mediaId: "1177552285539421285_48645434") { response in
-//            print("---------getMedia---------")
-//            dump(response.data)
-//        }
-        
-//        instagramAPI.getLikes(mediaId: "1177552285539421285_48645434") { response in
-//            print("---------getLikes---------")
-//            dump(response.data)
-//        }
-        
-//        instagramAPI.getComments(mediaId: "1177552285539421285_48645434") { response in
-//            print("---------getComments---------")
-//            dump(response.data)
-//        }
+        self.getIG(userId: nil)
+        self.getNetwork()
     }
     
-//    func getDataForFB() {
-//
-//        self.instagramAPI.getUser(userId: nil) { user in
-//            print("---------getUser---------")
-//            dump(user)
-//
-//            self.instagramAPI.getRecentMedia(userId: nil) { medias in
-//                print("---------getRecentMedia---------")
+    func getIG(userId: String?) {
+        self.instagramAPI.getUser(userId: userId) { result in
+            guard case let Result.Success(user) = result else { return }
+            print("---------getUser---------")
+            dump(user)
+
+            self.instagramAPI.getRecentMedia(userId: userId) { result in
+                guard case let Result.Success(medias) = result else { return }
+                print("---------getRecentMedia---------")
+                print(medias.count)
 //                dump(medias)
-//
-//                self.fbManager.uploadData(user: user, medias: medias)
-//            }
-//        }
-//    }
+                self.fbManager.uploadData(user: user, medias: medias)
+            }
+        }
+    }
     
+    func getNetwork() {
+        var follows: [InstagramSimpleUser] = []
+        var followedBy: [InstagramSimpleUser] = []
+        let group = DispatchGroup()
+        
+        group.enter()
+        self.instagramAPI.getFollows() { result in
+            guard case let Result.Success(users) = result else { return group.leave() }
+            follows = users
+            group.leave()
+        }
+        
+        group.enter()
+        self.instagramAPI.getFollowedBy() { result in
+            guard case let Result.Success(users) = result else { return group.leave() }
+            followedBy = users
+            group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            let network: [InstagramSimpleUser] = follows + followedBy
+            let networkIds: [String] = network.map {user in user.id}
+            let uniqueNetworkIds: [String] = Array(Set(networkIds))
+            dump(uniqueNetworkIds)
+            
+            uniqueNetworkIds.forEach { id in
+                self.getIG(userId: id)
+            }
+        }
+    }
 }
