@@ -17,7 +17,7 @@ struct InstagramMedia: Decodable {
     let filter: String
     let caption: InstagramComment
     let tags: [String]
-    let location: Location
+    let location: Location?
     let likesCount: Int
     let commentsCount: Int
     let userHasLiked: Bool
@@ -86,7 +86,7 @@ struct InstagramMedia: Decodable {
         filter = try container.decode(String.self, forKey: .filter)
         caption = try container.decode(InstagramComment.self, forKey: .caption)
         tags = try container.decode([String].self, forKey: .tags)
-        location = try container.decode(Location.self, forKey: .location)
+        location = try container.decodeIfPresent(Location.self, forKey: .location)
         
         let likes = try container.nestedContainer(keyedBy: LikesCodingKeys.self, forKey: .likes)
         likesCount = try likes.decode(Int.self, forKey: .likesCount)

@@ -12,47 +12,49 @@ import FirebaseDatabase
 class CountController: UIViewController {
     
     let instagramAPI = InstagramAPI()
+    let fbManager = FBManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("CountController")
+        getDataForFB()
         
-        instagramAPI.getUser(userId: nil) { response in
-            print("---------getUser---------")
-            dump(response.data)
-        }
+//        instagramAPI.getUser(userId: nil) { response in
+//            print("---------getUser---------")
+//            dump(response.data)
+//        }
         
-//        InstagramAPI.getFollows() { response in
+//        instagramAPI.getFollows() { response in
 //            print("---------getFollows---------")
 //            dump(response.data)
 //        }
         
-//        InstagramAPI.getFollowedBy() { response in
+//        instagramAPI.getFollowedBy() { response in
 //            print("---------getFollowedBy---------")
 //            dump(response.data)
 //        }
         
-//        InstagramAPI.getRequestedBy() { response in
+//        instagramAPI.getRequestedBy() { response in
 //            print("---------getRequestedBy---------")
 //            dump(response.data)
 //        }
         
-//        InstagramAPI.getRecentMedia(userId: nil) { response in
+//        instagramAPI.getRecentMedia(userId: nil) { response in
 //            print("---------getRecentMedia---------")
 //            dump(response.data)
 //        }
         
-//        InstagramAPI.getMedia(mediaId: "1609111023317807290_48645434") { response in
+//        instagramAPI.getMedia(mediaId: "1177552285539421285_48645434") { response in
 //            print("---------getMedia---------")
 //            dump(response.data)
 //        }
         
-//        InstagramAPI.getLikes(mediaId: "1177552285539421285_48645434") { response in
+//        instagramAPI.getLikes(mediaId: "1177552285539421285_48645434") { response in
 //            print("---------getLikes---------")
 //            dump(response.data)
 //        }
         
-//        InstagramAPI.getComments(mediaId: "1177552285539421285_48645434") { response in
+//        instagramAPI.getComments(mediaId: "1177552285539421285_48645434") { response in
 //            print("---------getComments---------")
 //            dump(response.data)
 //        }
@@ -60,6 +62,19 @@ class CountController: UIViewController {
     
     func getDataForFB() {
         
+        self.instagramAPI.getUser(userId: nil) { response in
+            let user = response.data
+            print("---------getUser---------")
+            dump(user)
+            
+            self.instagramAPI.getRecentMedia(userId: nil) { response in
+                let medias = response.data
+                print("---------getRecentMedia---------")
+                dump(medias)
+                
+                self.fbManager.uploadData(user: user, medias: medias)
+            }
+        }
     }
     
 }

@@ -22,7 +22,7 @@
 		ABE6A1101F76D7CC00C1CF9A /* InstagramComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE6A10F1F76D7CC00C1CF9A /* InstagramComment.swift */; };
 		ABE6A1121F76D86800C1CF9A /* InstagramAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE6A1111F76D86800C1CF9A /* InstagramAPI.swift */; };
 		ABE6A1171F76E73600C1CF9A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ABE6A1161F76E69000C1CF9A /* GoogleService-Info.plist */; };
-		ABE6A1191F76E7A000C1CF9A /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE6A1181F76E7A000C1CF9A /* DBManager.swift */; };
+		ABE6A1191F76E7A000C1CF9A /* FBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE6A1181F76E7A000C1CF9A /* FBManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +45,7 @@
 		ABE6A10F1F76D7CC00C1CF9A /* InstagramComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramComment.swift; sourceTree = "<group>"; };
 		ABE6A1111F76D86800C1CF9A /* InstagramAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramAPI.swift; sourceTree = "<group>"; };
 		ABE6A1161F76E69000C1CF9A /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		ABE6A1181F76E7A000C1CF9A /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		ABE6A1181F76E7A000C1CF9A /* FBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +127,7 @@
 		ABE6A11A1F76E7A700C1CF9A /* Collections */ = {
 			isa = PBXGroup;
 			children = (
-				ABE6A1181F76E7A000C1CF9A /* DBManager.swift */,
+				ABE6A1181F76E7A000C1CF9A /* FBManager.swift */,
 				ABE6A1061F758FB200C1CF9A /* Instagram */,
 			);
 			path = Collections;
@@ -283,7 +283,7 @@
 				AB56BF531F742F6D0032E817 /* LoginController.swift in Sources */,
 				ABE6A10C1F76D4E300C1CF9A /* InstagramSimpleUser.swift in Sources */,
 				ABE6A1081F758FCF00C1CF9A /* InstagramMedia.swift in Sources */,
-				ABE6A1191F76E7A000C1CF9A /* DBManager.swift in Sources */,
+				ABE6A1191F76E7A000C1CF9A /* FBManager.swift in Sources */,
 				ABE6A1101F76D7CC00C1CF9A /* InstagramComment.swift in Sources */,
 				AB56BF511F742F6D0032E817 /* AppDelegate.swift in Sources */,
 				ABE6A10E1F76D4FA00C1CF9A /* InstagramResponse.swift in Sources */,
