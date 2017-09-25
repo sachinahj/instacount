@@ -17,37 +17,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5b9-BW-7VP">
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wAH-jI-DJh">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="w3w-tt-oMl">
-                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                                <rect key="frame" x="162" y="308" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="jIm-Dc-Jmc"/>
-                                    <constraint firstAttribute="width" constant="20" id="mhU-sz-kmO"/>
+                                    <constraint firstAttribute="height" constant="50" id="jIm-Dc-Jmc"/>
+                                    <constraint firstAttribute="width" constant="50" id="mhU-sz-kmO"/>
                                 </constraints>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="5b9-BW-7VP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="1mp-EG-QBB"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5b9-BW-7VP" secondAttribute="bottom" id="49d-tO-pCj"/>
-                            <constraint firstItem="5b9-BW-7VP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="FSV-dk-cQH"/>
+                            <constraint firstItem="wAH-jI-DJh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="C0I-z9-j1V"/>
                             <constraint firstItem="w3w-tt-oMl" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Sch-Tf-YT1"/>
-                            <constraint firstItem="5b9-BW-7VP" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="dZH-l1-Hxs"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wAH-jI-DJh" secondAttribute="trailing" id="YFZ-z5-nks"/>
+                            <constraint firstItem="wAH-jI-DJh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="dKL-u7-YeC"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wAH-jI-DJh" secondAttribute="bottom" id="ndG-hp-z5n"/>
                             <constraint firstItem="w3w-tt-oMl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="xfT-A8-Zgl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="loginIndicator" destination="w3w-tt-oMl" id="6Cr-cz-gDZ"/>
-                        <outlet property="loginWebView" destination="5b9-BW-7VP" id="OOy-sE-j7r"/>
+                        <outlet property="loginWebView" destination="wAH-jI-DJh" id="zuZ-FH-e2A"/>
                         <segue destination="tMg-AT-DXr" kind="show" identifier="goToCount" id="gvk-ep-Ur0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-55" y="33"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="RFc-qd-3ev">

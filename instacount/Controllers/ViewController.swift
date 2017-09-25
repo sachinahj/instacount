@@ -1,5 +1,5 @@
 //
-//  CountController.swift
+//  ViewController.swift
 //  instacount
 //
 //  Created by Atom - Sachin on 9/21/17.
@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("CountController")
+        print("ViewController: viewDidLoad")
         self.getIG(userId: nil)
         self.getNetwork()
     }
@@ -24,12 +24,12 @@ class ViewController: UIViewController {
     func getIG(userId: String?) {
         self.instagramAPI.getUser(userId: userId) { result in
             guard case let Result.Success(user) = result else { return }
-            print("---------getUser---------")
+            print("---------getUser \(userId ?? "self")---------")
             dump(user)
 
             self.instagramAPI.getRecentMedia(userId: userId) { result in
                 guard case let Result.Success(medias) = result else { return }
-                print("---------getRecentMedia---------")
+                print("---------getRecentMedia \(userId ?? "self")---------")
                 print(medias.count)
 //                dump(medias)
                 self.fbManager.uploadData(user: user, medias: medias)
@@ -66,5 +66,9 @@ class ViewController: UIViewController {
                 self.getIG(userId: id)
             }
         }
+    }
+    
+    deinit {
+        print("ViewController: deinit")
     }
 }

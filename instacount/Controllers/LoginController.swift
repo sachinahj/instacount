@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  LoginController.swift
 //  instacount
 //
 //  Created by Atom - Sachin on 9/21/17.
@@ -7,16 +7,18 @@
 //
 
 import UIKit
+import WebKit
 
-class LoginController: UIViewController, UIWebViewDelegate {
+class LoginController: UIViewController, WKNavigationDelegate {
     
-    @IBOutlet weak var loginWebView: UIWebView!
+    @IBOutlet weak var loginWebView: WKWebView!
     @IBOutlet weak var loginIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("LoginController")
-        loginWebView.delegate = self
+        print("LoginController: viewDidLoad")
+        loginWebView.navigationDelegate = self
+        loginIndicator.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
 //        logout()
         unSignedRequest()
     }
@@ -37,19 +39,7 @@ class LoginController: UIViewController, UIWebViewDelegate {
             arguments: [INSTAGRAM.AUTHURL, INSTAGRAM.CLIENT_ID, INSTAGRAM.REDIRECT_URI, INSTAGRAM.SCOPE]
         )
         let urlRequest =  URLRequest.init(url: URL.init(string: authURL)!)
-        loginWebView.loadRequest(urlRequest)
-    }
-    
-    func checkRequestForCallbackURL(request: URLRequest) -> Bool {
-        let requestURLString = (request.url?.absoluteString)! as String
-        if requestURLString.hasPrefix(INSTAGRAM.REDIRECT_URI) {
-            let range: Range<String.Index> = requestURLString.range(of: "#access_token=")!
-//            handleAuth(accessToken: requestURLString.substring(from: range.upperBound))
-            let token = String(requestURLString[range.upperBound...])
-            handleAuth(accessToken: token)
-            return false
-        }
-        return true
+        loginWebView.load(urlRequest)
     }
     
     func handleAuth(accessToken: String)  {
@@ -59,23 +49,36 @@ class LoginController: UIViewController, UIWebViewDelegate {
         self.performSegue(withIdentifier: "goToCount", sender: self)
     }
     
-    // Web View Delegate
-    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        return checkRequestForCallbackURL(request: request)
+    // WebKit View Delegate
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let requestURLString = (webView.url?.absoluteString)! as String
+        if requestURLString.hasPrefix(INSTAGRAM.REDIRECT_URI) {
+            let range: Range<String.Index> = requestURLString.range(of: "#access_token=")!
+            let token = String(requestURLString[range.upperBound...])
+            handleAuth(accessToken: token)
+            decisionHandler(.cancel)
+        } else {
+            decisionHandler(.allow)
+        }
     }
     
-    func webViewDidStartLoad(_ webView: UIWebView) {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         loginIndicator.isHidden = false
         loginIndicator.startAnimating()
     }
     
-    func webViewDidFinishLoad(_ webView: UIWebView) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         loginIndicator.isHidden = true
         loginIndicator.stopAnimating()
     }
     
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-        webViewDidFinishLoad(webView)
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        loginIndicator.isHidden = true
+        loginIndicator.stopAnimating()
+    }
+    
+    deinit {
+        print("LoginController: deinit")
     }
     
 }
