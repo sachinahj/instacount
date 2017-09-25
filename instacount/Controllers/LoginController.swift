@@ -17,7 +17,18 @@ class LoginController: UIViewController, UIWebViewDelegate {
         super.viewDidLoad()
         print("LoginController")
         loginWebView.delegate = self
+//        logout()
         unSignedRequest()
+    }
+    
+    func logout() {
+        let cookieStorage = HTTPCookieStorage.shared
+        if let cookies = cookieStorage.cookies {
+            for cookie in cookies where cookie.domain.range(of: "instagram.com") != nil {
+                print("\(cookie)")
+                cookieStorage.deleteCookie(cookie)
+            }
+        }
     }
     
     func unSignedRequest () {

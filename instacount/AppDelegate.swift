@@ -45,8 +45,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
-enum Result<T> {
-    case Success(T)
-    case Failure(String)
-}
+
 
