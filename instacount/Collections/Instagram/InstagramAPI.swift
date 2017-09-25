@@ -16,55 +16,65 @@ class InstagramAPI {
     
     func setAccessToken(token: String) { accessToken = token }
    
-    func getUser(userId: String?, completion: @escaping (InstagramUser) -> Void) {
-        guard let accessToken = accessToken else { return }
-        let userId = userId ?? "self"
-        let urlString = String(
-            format: "%@users/%@?access_token=%@",
-            arguments: [INSTAGRAM.BASEURL, userId, accessToken]
-        )
-        guard let url = URL(string: urlString) else { return }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let json = data else { return }
-            do {
-                let instagramUserResponse = try self.decoder.decode(InstagramUserResponse.self, from: json)
-                if let user = instagramUserResponse.data, instagramUserResponse.meta.code == 200 {
-                    completion(user)
-                } else {
-                    print("getUser: non-200 return:", instagramUserResponse.meta.errorType ?? "", ":", instagramUserResponse.meta.errorMessage ?? "")
+    func getUser(userId: String?, completion: @escaping (Result<InstagramUser>) -> Void) {
+        do {
+            guard let accessToken = accessToken else { throw InstagramAPIError.NoAccessToken }
+            let userId = userId ?? "self"
+            let urlString = String(
+                format: "%@users/%@?access_token=%@",
+                arguments: [INSTAGRAM.BASEURL, userId, accessToken]
+            )
+            guard let url = URL(string: urlString) else { throw InstagramAPIError.InvalidURL }
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                do {
+                    guard let json = data else { throw InstagramAPIError.NetworkError }
+                    let instagramUserResponse = try self.decoder.decode(InstagramUserResponse.self, from:
+                        json)
+                    if let user = instagramUserResponse.data, instagramUserResponse.meta.code == 200 {
+                        completion(Result.Success(user))
+                    } else {
+                        throw InstagramAPIError.Non200(meta: instagramUserResponse.meta)
+                    }
+                } catch {
+                    print("getUser: Error |", error.localizedDescription)
+                    completion(Result.Failure(error.localizedDescription))
                 }
-            } catch {
-                print("getUser: JSON decode error", error)
-            }
-        }.resume()
-    }
-    
-    func getRecentMedia(userId: String?, completion: @escaping ([InstagramMedia]) -> Void) {
-        guard let accessToken = accessToken else { return }
-        let userId = userId ?? "self"
-        let urlString = String(
-            format: "%@users/%@/media/recent?access_token=%@",
-            arguments: [INSTAGRAM.BASEURL, userId, accessToken]
-        )
-        guard let url = URL(string: urlString) else {
-            print("getRecentMedia")
-            return
+            }.resume()
+        } catch {
+            print("getUser: Error |", error.localizedDescription)
+            completion(Result.Failure(error.localizedDescription))
         }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let json = data else { return }
-            do {
-                let instagramRecentMediaResponse = try self.decoder.decode(InstagramRecentMediaResponse.self, from: json)
-                if let instagramRecentMedias = instagramRecentMediaResponse.data, instagramRecentMediaResponse.meta.code == 200 {
-                    completion(instagramRecentMedias)
-                } else {
-                    print("getRecentMedia: non-200 return:", instagramRecentMediaResponse.meta.errorType ?? "", ":", instagramRecentMediaResponse.meta.errorMessage ?? "")
-                }
-            } catch {
-                print("getRecentMedia: JSON decode error", error)
-            }
-        }.resume()
     }
     
+    func getRecentMedia(userId: String?, completion: @escaping (Result<[InstagramMedia]>) -> Void) {
+        do {
+            guard let accessToken = accessToken else { throw InstagramAPIError.NoAccessToken }
+            let userId = userId ?? "self"
+            let urlString = String(
+                format: "%@users/%@/media/recent?access_token=%@",
+                arguments: [INSTAGRAM.BASEURL, userId, accessToken]
+            )
+            guard let url = URL(string: urlString) else { throw InstagramAPIError.InvalidURL }
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                do {
+                    guard let json = data else { throw InstagramAPIError.NetworkError }
+                    let instagramRecentMediaResponse = try self.decoder.decode(InstagramRecentMediaResponse.self, from: json)
+                    if let recentMedias = instagramRecentMediaResponse.data, instagramRecentMediaResponse.meta.code == 200 {
+                        completion(Result.Success(recentMedias))
+                    } else {
+                        throw InstagramAPIError.Non200(meta: instagramRecentMediaResponse.meta)
+                    }
+                } catch {
+                    print("getRecentMedia: Error |", error.localizedDescription)
+                    completion(Result.Failure(error.localizedDescription))
+                }
+            }.resume()
+        } catch {
+            print("getRecentMedia: Error |", error.localizedDescription)
+            completion(Result.Failure(error.localizedDescription))
+        }
+    }
+
     func getFollows(completion: @escaping (InstagramRelationshipResponse) -> Void) {
         guard let accessToken = accessToken else { return }
         let urlString = String(
@@ -155,4 +165,24 @@ class InstagramAPI {
     //        }.resume()
     //    }
     
+}
+
+enum InstagramAPIError: LocalizedError {
+    case NoAccessToken
+    case InvalidURL
+    case NetworkError
+    case Non200(meta: InstagramMeta)
+    
+    var errorDescription: String? {
+        switch self {
+        case .NoAccessToken:
+            return "InstagramAPIError NoAccessToken"
+        case .InvalidURL:
+            return "InstagramAPIError InvalidURL"
+        case let .Non200(meta):
+            return "InstagramAPIError Non200: \(meta.errorType ?? ""): \(meta.errorMessage ?? "")"
+        case .NetworkError:
+            return "InstagramAPIError NetworkError"
+        }
+    }
 }

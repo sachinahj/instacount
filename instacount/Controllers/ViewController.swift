@@ -19,7 +19,13 @@ class ViewController: UIViewController {
         print("CountController")
 //        getDataForFB()
         
-        instagramAPI.getUser(userId: "496275546") { user in
+//        instagramAPI.getUser(userId: "496275546") { user in
+//            print("---------getUser---------")
+//            dump(user)
+//        }
+        
+        instagramAPI.getUser(userId: nil) { result in
+            guard case let Result.Success(user) = result else { return }
             print("---------getUser---------")
             dump(user)
         }
@@ -60,19 +66,19 @@ class ViewController: UIViewController {
 //        }
     }
     
-    func getDataForFB() {
-        
-        self.instagramAPI.getUser(userId: nil) { user in
-            print("---------getUser---------")
-            dump(user)
-            
-            self.instagramAPI.getRecentMedia(userId: nil) { medias in
-                print("---------getRecentMedia---------")
-                dump(medias)
-                
-                self.fbManager.uploadData(user: user, medias: medias)
-            }
-        }
-    }
+//    func getDataForFB() {
+//
+//        self.instagramAPI.getUser(userId: nil) { user in
+//            print("---------getUser---------")
+//            dump(user)
+//
+//            self.instagramAPI.getRecentMedia(userId: nil) { medias in
+//                print("---------getRecentMedia---------")
+//                dump(medias)
+//
+//                self.fbManager.uploadData(user: user, medias: medias)
+//            }
+//        }
+//    }
     
 }
