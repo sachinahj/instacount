@@ -10,6 +10,7 @@
     </dependencies>
     <customFonts key="customFonts">
         <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
             <string>HelveticaNeue-Bold</string>
         </array>
     </customFonts>
@@ -80,14 +81,29 @@
                                     <action selector="logoutButtonPressed:" destination="tMg-AT-DXr" eventType="touchUpInside" id="hHH-F3-FQy"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C96-ge-aNL">
+                                <rect key="frame" x="137" y="158.5" width="100" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="EvQ-rB-SZf"/>
+                                    <constraint firstAttribute="height" constant="50" id="d3q-Ic-Xce"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="h5g-CO-q2G" firstAttribute="centerY" secondItem="O5k-gG-fKj" secondAttribute="centerY" id="52r-ON-d3Y"/>
+                            <constraint firstItem="C96-ge-aNL" firstAttribute="centerY" secondItem="O5k-gG-fKj" secondAttribute="centerY" constant="-150" id="5lU-8O-iJ1"/>
                             <constraint firstItem="h5g-CO-q2G" firstAttribute="centerX" secondItem="O5k-gG-fKj" secondAttribute="centerX" id="8CZ-0N-dtC"/>
+                            <constraint firstItem="C96-ge-aNL" firstAttribute="centerX" secondItem="O5k-gG-fKj" secondAttribute="centerX" id="fRl-Zu-QLi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FXp-Bi-60w"/>
                     </view>
+                    <connections>
+                        <outlet property="likesLabel" destination="C96-ge-aNL" id="1BL-ub-LuD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8XE-Px-oqd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

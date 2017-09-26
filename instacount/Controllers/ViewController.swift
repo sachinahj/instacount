@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     
     let instagramAPI: InstagramAPI = InstagramAPI()
     let fbManager: FBManager = FBManager()
+    @IBOutlet weak var likesLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
