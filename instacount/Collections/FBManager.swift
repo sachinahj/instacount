@@ -9,17 +9,8 @@
 import Foundation
 import FirebaseDatabase
 
-protocol FBManagerDelegate: class {
-//    func FBManager(friendFound: Friend)
-}
-
-extension  FBManagerDelegate {
-//    func FBManager(friendFound: Friend) {}
-}
-
 class FBManager {
     var ref: DatabaseReference!
-    weak var delegate: FBManagerDelegate?
     
     func uploadData(user: InstagramUser, medias: [InstagramMedia]) {
         ref = Database.database().reference()

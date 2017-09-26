@@ -13,11 +13,3 @@ enum Result<T> {
     case Failure(String)
 }
 
-class ReplaceTopSegue: UIStoryboardSegue {
-    override func perform() {
-        var vcs = source.navigationController?.viewControllers ?? [source]
-        vcs.removeLast()
-        vcs.append(destination)
-        source.navigationController?.setViewControllers(vcs, animated: true)
-    }
-}

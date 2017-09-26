@@ -15,6 +15,17 @@ class InstagramAPI {
     let decoder: JSONDecoder = JSONDecoder()
     
     func setAccessToken(token: String) { accessToken = token }
+    
+    func logout() {
+        accessToken = nil
+        let cookieStorage = HTTPCookieStorage.shared
+        if let cookies = cookieStorage.cookies {
+            for cookie in cookies where cookie.domain.range(of: "instagram.com") != nil {
+                print("-->", cookie.domain)
+                cookieStorage.deleteCookie(cookie)
+            }
+        }
+    }
    
     func getUser(userId: String?, completion: @escaping (Result<InstagramUser>) -> Void) {
         do {

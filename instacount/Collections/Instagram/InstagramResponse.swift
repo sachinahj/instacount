@@ -13,28 +13,13 @@ struct InstagramUserResponse: Decodable {
     let meta: InstagramMeta
 }
 
-struct InstagramRelationshipResponse: Decodable {
-    let data: [InstagramSimpleUser]?
-    let meta: InstagramMeta
-}
-
 struct InstagramRecentMediaResponse: Decodable {
     let data: [InstagramMedia]?
     let meta: InstagramMeta
 }
 
-struct InstagramMediaResponse: Decodable {
-    let data: InstagramMedia
-    let meta: InstagramMeta
-}
-
-struct InstagramLikesResponse: Decodable {
-    let data: [InstagramSimpleUser]
-    let meta: InstagramMeta
-}
-
-struct InstagramCommentsResponse: Decodable {
-    let data: [InstagramComment]
+struct InstagramRelationshipResponse: Decodable {
+    let data: [InstagramSimpleUser]?
     let meta: InstagramMeta
 }
 

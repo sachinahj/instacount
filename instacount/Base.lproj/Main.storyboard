@@ -8,11 +8,16 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Login Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginController" customModule="instacount" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginSB" id="BYZ-38-t0r" customClass="LoginController" customModule="instacount" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -48,7 +53,6 @@
                     <connections>
                         <outlet property="loginIndicator" destination="w3w-tt-oMl" id="6Cr-cz-gDZ"/>
                         <outlet property="loginWebView" destination="wAH-jI-DJh" id="zuZ-FH-e2A"/>
-                        <segue destination="tMg-AT-DXr" kind="show" identifier="goToCount" customClass="ReplaceTopSegue" customModule="instacount" customModuleProvider="target" id="gvk-ep-Ur0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -58,11 +62,30 @@
         <!--View Controller-->
         <scene sceneID="RFc-qd-3ev">
             <objects>
-                <viewController id="tMg-AT-DXr" customClass="ViewController" customModule="instacount" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewSB" id="tMg-AT-DXr" customClass="ViewController" customModule="instacount" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O5k-gG-fKj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h5g-CO-q2G">
+                                <rect key="frame" x="112.5" y="308.5" width="150" height="50"/>
+                                <color key="backgroundColor" red="0.36102196246815776" green="1" blue="0.96593514493917154" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="WId-b7-5om"/>
+                                    <constraint firstAttribute="width" constant="150" id="f0Y-fi-LpH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="LOGOUT"/>
+                                <connections>
+                                    <action selector="logoutButtonPressed:" destination="tMg-AT-DXr" eventType="touchUpInside" id="hHH-F3-FQy"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="h5g-CO-q2G" firstAttribute="centerY" secondItem="O5k-gG-fKj" secondAttribute="centerY" id="52r-ON-d3Y"/>
+                            <constraint firstItem="h5g-CO-q2G" firstAttribute="centerX" secondItem="O5k-gG-fKj" secondAttribute="centerX" id="8CZ-0N-dtC"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="FXp-Bi-60w"/>
                     </view>
                 </viewController>

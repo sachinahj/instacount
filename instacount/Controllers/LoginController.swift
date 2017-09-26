@@ -13,24 +13,14 @@ class LoginController: UIViewController, WKNavigationDelegate {
     
     @IBOutlet weak var loginWebView: WKWebView!
     @IBOutlet weak var loginIndicator: UIActivityIndicatorView!
+    let instagramAPI: InstagramAPI = InstagramAPI()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("LoginController: viewDidLoad")
         loginWebView.navigationDelegate = self
         loginIndicator.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
-//        logout()
         unSignedRequest()
-    }
-    
-    func logout() {
-        let cookieStorage = HTTPCookieStorage.shared
-        if let cookies = cookieStorage.cookies {
-            for cookie in cookies where cookie.domain.range(of: "instagram.com") != nil {
-                print("\(cookie)")
-                cookieStorage.deleteCookie(cookie)
-            }
-        }
     }
     
     func unSignedRequest () {
@@ -44,9 +34,10 @@ class LoginController: UIViewController, WKNavigationDelegate {
     
     func handleAuth(accessToken: String)  {
         print("Instagram authentication token ==", accessToken)
-        let instagramAPI = InstagramAPI()
         instagramAPI.setAccessToken(token: accessToken)
-        performSegue(withIdentifier: "goToCount", sender: self)
+        if let destination = self.storyboard?.instantiateViewController(withIdentifier: "ViewSB") as? ViewController {
+            navigationController?.setViewControllers([destination], animated: true)
+        }
     }
     
     // WebKit View Delegate
@@ -76,7 +67,7 @@ class LoginController: UIViewController, WKNavigationDelegate {
         loginIndicator.isHidden = true
         loginIndicator.stopAnimating()
     }
-    
+        
     deinit {
         print("LoginController: deinit")
     }
