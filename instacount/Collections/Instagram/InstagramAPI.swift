@@ -23,7 +23,7 @@ class InstagramAPI {
             dump(cookies)
             for cookie in cookies where cookie.domain.range(of: "instagram.com") != nil {
                 print("-->", cookie.domain)
-//                cookieStorage.deleteCookie(cookie)
+                cookieStorage.deleteCookie(cookie)
             }
         }
     }
