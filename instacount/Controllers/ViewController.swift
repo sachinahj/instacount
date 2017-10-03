@@ -11,6 +11,7 @@ import FirebaseDatabase
 
 class ViewController: UIViewController {
     
+    let likes: Int = 100
     let instagramAPI: InstagramAPI = InstagramAPI()
     let fbManager: FBManager = FBManager()
     @IBOutlet weak var likesLabel: UILabel!
@@ -20,6 +21,16 @@ class ViewController: UIViewController {
         print("ViewController: viewDidLoad")
         self.getIG(userId: nil)
         self.getNetwork()
+        self.updateCounter(count: 10)
+    }
+    
+    func updateCounter(count: Int) {
+        self.likesLabel.text = String(count)
+        let updateCount = count + 1
+        guard updateCount <= self.likes else { return }
+        delay(0.1) {
+            self.updateCounter(count: updateCount)
+        }
     }
     
     func getIG(userId: String?) {

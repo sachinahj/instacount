@@ -20,9 +20,10 @@ class InstagramAPI {
         accessToken = nil
         let cookieStorage = HTTPCookieStorage.shared
         if let cookies = cookieStorage.cookies {
+            dump(cookies)
             for cookie in cookies where cookie.domain.range(of: "instagram.com") != nil {
                 print("-->", cookie.domain)
-                cookieStorage.deleteCookie(cookie)
+//                cookieStorage.deleteCookie(cookie)
             }
         }
     }
